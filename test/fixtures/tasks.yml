@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  category_id: 1
+  title: MyString
+  description: MyString
+  address: MyString
+  completion_time: 1
+  status: false
+  pinned: false
+  date_time: 2016-12-11 13:43:20
+
+two:
+  user_id: 1
+  category_id: 1
+  title: MyString
+  description: MyString
+  address: MyString
+  completion_time: 1
+  status: false
+  pinned: false
+  date_time: 2016-12-11 13:43:20
