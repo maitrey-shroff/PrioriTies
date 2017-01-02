@@ -9,7 +9,6 @@ class PrioritiesController < ApplicationController
     @task.save
 
     redirect_to "/priorities"
-
   end
 
   # def new
@@ -24,7 +23,6 @@ class PrioritiesController < ApplicationController
     @task = Task.find(params[:id])
     @task.assign_attributes({title: params[:title], description: params[:description], address: params[:address], completion_time: params[:completion_time], date_time: params[:date_time], status: true, user_id: 1})
     @task.save
-
   end
 
 end
