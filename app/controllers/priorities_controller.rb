@@ -4,8 +4,12 @@ class PrioritiesController < ApplicationController
     @tasks = Task.all
   end
 
+  def show
+    @task = Task.find_by(id: params[:id])
+  end
+
   def create
-    @task = Task.new({title: params[:title], description: params[:description], address: params[:address], completion_time: params[:completion_time], date_time: params[:date_time], status: true, user_id: 1})
+    @task = Task.new({title: params[:title], description: params[:description], address: params[:address], completion_time: params[:completion_time], date_time: params[:date_time], status: true, user_id: current_user.id, category_id: params[:category_id]})
     @task.save
 
     redirect_to "/priorities"
@@ -21,7 +25,7 @@ class PrioritiesController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    @task.assign_attributes({title: params[:title], description: params[:description], address: params[:address], completion_time: params[:completion_time], date_time: params[:date_time], status: true, user_id: 1})
+    @task.assign_attributes({title: params[:title], description: params[:description], address: params[:address], completion_time: params[:completion_time], date_time: params[:date_time], status: true, user_id: current_user.id})
     @task.save
   end
 
