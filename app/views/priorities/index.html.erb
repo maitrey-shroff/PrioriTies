@@ -1,18 +1,104 @@
-<% if current_user %>
-  <p><%= current_user.id %></p>
-<% end %>
+<div ng-controller="pageCtrl">
+  <div class="container">
+    <table class="table table-striped table-hover ">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Priority</th>
+          <th>Time to complete</th>
+          <th>Due date</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% if current_user %>
+        <% current_user.tasks.each do |task| %>
+        <tr ng-click="getDetails(<%= task.id %>)" data-toggle="modal" data-target="#detailView">
+          <td><%= task.title %></td>
+          <td><%= task.priority_level %></td>
+          <td><%= task.completion_time %></td>
+          <td><%= task.date_time %></td>
+        </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
 
-<% @tasks.each do |task| %>
+  <div id="detailView" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">{{ current_task.title }}</h4>
+        </div>
+        <div class="modal-body">
+        <!-- add remaining details -->
+          <p>{{ current_task.description }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editModal" data-dismiss="modal">Edit PrioriTie</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
-  Title: <b><%= task.title %></b>
-  Description: <%= task.description %>
-  Completion time: <%= task.completion_time %>
-  Due date: <%= task.date_time %>
-  Address: <%= task.address %>
-  Pinned status: <%= task.pinned %>
-  Priority level: <%= task.priority_level %>
-  Category: <%= task.category_id %>
+  {{1+1}}
 
-<% end %>
+  <div id="editModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <form action="/priorities/5" accept-charset="UTF-8" method="post" class="ng-pristine ng-valid"><input name="utf8" type="hidden" value="✓" autocomplete="off"><input type="hidden" name="_method" value="patch" autocomplete="off"><input type="hidden" name="authenticity_token" value="a0ROr43xb9fst+XdLeXfm5ST/srLqj7obeBt1N+HFlIwwydnUxZ1BHurwA57xVrpBxUpSCmyX2FVcIsXXbr6lw==" autocomplete="off">
 
-<%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %>`
+            <!-- add remaining fields angular values -->
+
+            <div>
+              <label for="title">Title</label>:
+              <input type="text" name="title" id="title" ng-model="current_task.title">
+            </div>
+<!-- 
+            <div>
+              <label for="description">Description</label>:
+              <input type="text" name="description" id="description" value="arst">
+            </div>
+
+            <div>
+              <label for="category_id">Category</label>:
+              <input type="text" name="category_id" id="category_id" value="12">
+            </div>
+
+            <div>
+              <label for="address">Address</label>:
+              <input type="text" name="address" id="address" value="">
+            </div>
+
+            <div>
+              <label for="completion_time">Completion time</label> (in minutes):
+              <input type="text" name="completion_time" id="completion_time">
+            </div>
+
+            <div>
+              <label for="date_time">Date time</label>:
+              <input type="text" name="date_time" id="date_time">
+            </div> -->
+            
+            <div>
+              <label for="pinned">Pinned</label>:
+              <input type="checkbox" name="pinned" ng-model="current_task.pinned"> True <br>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <input type="submit" ng-click="saveEdits(current_task)" class="btn btn-primary" name="commit" value="Save Changes" data-dismiss="modal" data-disable-with="submit">
+        </form>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</div>

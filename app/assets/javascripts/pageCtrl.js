@@ -1,0 +1,38 @@
+(function()
+{
+  "use strict";
+
+  angular.module("app").controller("pageCtrl", function($scope, $http, SweetAlert) 
+  {
+    var URL = "http://localhost:3000"
+    $scope.getDetails = function(id){
+      $http({
+        method: 'GET',
+        url: URL + '/priorities/' + id + '.json'
+      }).then(function successCallback(response) {
+          // console.log(response)
+          $scope.current_task = response.data
+        }, function errorCallback(response) {
+          // called asynchronously if an error occurs
+          // or server returns response with an error status.
+        });
+    }
+
+    $scope.saveEdits = function(current_task){
+      console.log(current_task.id)
+      $http({
+        method: 'PATCH',
+        url: URL + '/priorities/' + current_task.id,
+        // add remaining fields
+        data: { title: current_task.title, pinned: current_task.pinned }
+      }).then(function successCallback(response) {
+          SweetAlert.swal("Saved changes!")
+          // console.log(response)
+          $scope.current_task = response.data
+        }, function errorCallback(response) {
+          // called asynchronously if an error occurs
+          // or server returns response with an error status.
+        });
+    }
+  });
+})();

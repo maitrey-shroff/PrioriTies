@@ -11,8 +11,9 @@
 
   <body>
 
+<!-- navbar-fixed-top -->
 
-  <nav class="navbar navbar-default">
+  <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -21,13 +22,15 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Brand</a>
+        <a class="navbar-brand" href="#"></a>
       </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-          <li><a href="#">Link</a></li>
+          <% if current_user %>
+            <li><a data-toggle="modal" data-target="#newModal">[ + ]</a></li>
+            <li><a href="/priorities">PrioriTies</a></li>
+          <% end %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
@@ -48,7 +51,12 @@
           <button type="submit" class="btn btn-default">Submit</button>
         </form>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Link</a></li>
+          <% if current_user %>        
+            <li><a href="/users/sign_out">Logout</a></li>
+          <% else %>
+            <li><a href="/users/sign_up">Sign up!</a></li>
+            <li><a href="/users/sign_in">Login</a></li>            
+          <% end %>     
         </ul>
       </div>
     </div>
@@ -60,7 +68,70 @@
         <%= message %>
       </div>
     <% end %>
-
+    
+    <!-- wrapping yield in angular -->
+    <div ng-app="app">
     <%= yield %>
+    </div>
+
+    <div id="newModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Add a New PrioriTie</h4>
+          </div>
+          <div class="modal-body">
+
+            <%= form_tag '/priorities', method: :post do %>
+
+              <div>
+                <%= label_tag :title %>:
+                <%= text_field_tag :title %>
+              </div>
+
+              <div>
+                <%= label_tag :description %>:
+                <%= text_field_tag :description %>
+              </div>
+
+              <div>
+                <%= label_tag :category_id %>:
+                <%= text_field_tag :category_id %>
+              </div>
+
+              <div>
+                <%= label_tag :address %>:
+                <%= text_field_tag :address %>
+              </div>
+
+              <div>
+                <%= label_tag :completion_time %> (in minutes):
+                <%= text_field_tag :completion_time %>
+              </div>
+
+              <div>
+                <%= label_tag :date_time %>:
+                <%= text_field_tag :date_time %>
+              </div>
+              
+              <div>
+                <%= label_tag :pinned %>:
+                <%= text_field_tag :pinned %>
+              </div>
+              
+              <div>
+                <%= submit_tag "submit" %>
+              </div>
+
+            <% end %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
   </body>
 </html>

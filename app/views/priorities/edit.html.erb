@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
 
 <h1> Add New PrioriTie </h1>
 
@@ -45,4 +45,47 @@
 
 <% end %>
 
-</div>
+</div> -->
+
+<form action="/priorities/5" accept-charset="UTF-8" method="post" class="ng-pristine ng-valid"><input name="utf8" type="hidden" value="✓" autocomplete="off"><input type="hidden" name="_method" value="patch" autocomplete="off"><input type="hidden" name="authenticity_token" value="a0ROr43xb9fst+XdLeXfm5ST/srLqj7obeBt1N+HFlIwwydnUxZ1BHurwA57xVrpBxUpSCmyX2FVcIsXXbr6lw==" autocomplete="off">
+
+  <div>
+    <label for="title">Title</label>:
+    <input type="text" name="title" id="title" value="arst">
+  </div>
+
+  <div>
+    <label for="description">Description</label>:
+    <input type="text" name="description" id="description" value="arst">
+  </div>
+
+  <div>
+    <label for="category_id">Category</label>:
+    <input type="text" name="category_id" id="category_id" value="12">
+  </div>
+
+  <div>
+    <label for="address">Address</label>:
+    <input type="text" name="address" id="address" value="">
+  </div>
+
+  <div>
+    <label for="completion_time">Completion time</label> (in minutes):
+    <input type="text" name="completion_time" id="completion_time">
+  </div>
+
+  <div>
+    <label for="date_time">Date time</label>:
+    <input type="text" name="date_time" id="date_time">
+  </div>
+  
+  <div>
+    <label for="pinned">Pinned</label>:
+    <input type="text" name="pinned" id="pinned">
+  </div>
+  
+  <div>
+    <input type="submit" name="commit" value="submit" data-disable-with="submit">
+  </div>
+
+</form>

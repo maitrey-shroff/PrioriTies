@@ -31,6 +31,7 @@ gem 'omniauth-facebook'
 gem 'dotenv-rails'
 gem 'bootstrap-sass'
 gem 'bootswatch-rails'
+gem 'faker'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
