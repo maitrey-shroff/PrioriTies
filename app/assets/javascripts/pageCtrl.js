@@ -5,6 +5,7 @@
   angular.module("app").controller("pageCtrl", function($scope, $http, SweetAlert) 
   {
     var URL = "http://localhost:3000"
+
     $scope.getDetails = function(id){
       $http({
         method: 'GET',
@@ -24,7 +25,15 @@
         method: 'PATCH',
         url: URL + '/priorities/' + current_task.id,
         // add remaining fields
-        data: { title: current_task.title, pinned: current_task.pinned }
+        data: { 
+          title: current_task.title, 
+          description: current_task.description,
+          category_id: current_task.category_id,
+          priority_level: current_task.priority_level,
+          address: current_task.address,
+          completion_time: current_task.completion_time,
+          date_time: current_task.date_time,
+          pinned: current_task.pinned }
       }).then(function successCallback(response) {
           SweetAlert.swal("Saved changes!")
           // console.log(response)
