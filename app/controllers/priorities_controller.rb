@@ -1,7 +1,12 @@
 class PrioritiesController < ApplicationController
 
   def index
-    @tasks = Task.all
+    current_user = User.find(params[:user_id])
+    @tasks = current_user.tasks
+  end
+
+  def home
+
   end
 
   def show

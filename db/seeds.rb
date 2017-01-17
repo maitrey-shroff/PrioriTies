@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Task.destroy_all
-Category.destroy_all
+# Category.destroy_all
 
 # create_table "tasks", force: :cascade do |t|
 #   t.integer  "user_id"
@@ -24,25 +24,25 @@ Category.destroy_all
 #   t.integer  "priority_level"
 # end
 
-10.times do
-  Category.create({
-    name: Faker::Color.color_name
-    })
-end
+# 10.times do
+#   Category.create({
+#     name: Faker::Color.color_name
+#     })
+# end
 
 User.ids.each do |user_id|
   25.times do
     Task.create({
-      user_id: user_id
-      category_id: 
-      title:
-      description:
-      address:
-      completion_time:
-      date_time:
-      status:
-      pinned:
-      priority_level:
+      user_id: user_id,
+      category_id: rand(10) + 12,
+      title: Faker::Hipster.word,
+      description: Faker::StarWars.quote,
+      address: Faker::Address.street_address,
+      completion_time: rand(60),
+      date_time: Faker::Date.forward(23),
+      status: true,
+      pinned: false,
+      priority_level: rand(10)
       })
-
   end
+end

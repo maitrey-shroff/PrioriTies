@@ -128,7 +128,8 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <!-- FIX THIS SAVE BUTTON -->
+            <input type="submit" ng-click="saveEdits(current_task)" class="btn btn-primary" name="commit" value="Save Changes" data-dismiss="modal" data-disable-with="submit">            
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->

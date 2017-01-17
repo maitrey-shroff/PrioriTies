@@ -12,7 +12,7 @@
         url: URL + '/priorities/' + id + '.json'
       }).then(function successCallback(response) {
           // console.log(response)
-          $scope.current_task = response.data
+          $scope.current_task = response.data;
         }, function errorCallback(response) {
           // called asynchronously if an error occurs
           // or server returns response with an error status.
@@ -36,6 +36,7 @@
           pinned: current_task.pinned }
       }).then(function successCallback(response) {
           SweetAlert.swal("Saved changes!")
+          $scope.getTasks();
           // console.log(response)
           $scope.current_task = response.data
         }, function errorCallback(response) {
@@ -43,5 +44,22 @@
           // or server returns response with an error status.
         });
     }
+
+    $scope.getTasks = function(){
+      var current_user_id = document.getElementById('currentUserId');
+      console.log(current_user_id);
+      $http({
+        method: 'GET',
+        url: URL + '/priorities' + "?user_id=" + current_user_id
+      }).then(function successCallback(response) {
+        $scope.tasks = response.data
+        // console.log(response)
+      }, function errorCallback(response) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+      });
+
+    }
+
   });
 })();
