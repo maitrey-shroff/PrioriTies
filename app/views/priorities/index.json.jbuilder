@@ -1,3 +1,5 @@
-json.array! @tasks.each do |task|
-  json.partial! 'task.json.jbuilder', task: task
+if @tasks
+  json.array! @tasks.each do |task|
+    json.partial! 'task.json.jbuilder', task: task
+  end
 end

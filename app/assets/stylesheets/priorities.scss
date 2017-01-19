@@ -3,3 +3,10 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 body { padding-top: 70px; }
+
+.sortorder:after {
+  content: '\25b2';   // BLACK UP-POINTING TRIANGLE
+}
+.sortorder.reverse:after {
+  content: '\25bc';   // BLACK DOWN-POINTING TRIANGLE
+}

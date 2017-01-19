@@ -1,8 +1,11 @@
 class PrioritiesController < ApplicationController
 
   def index
-    current_user = User.find(params[:user_id])
-    @tasks = current_user.tasks
+    user_id = params[:user_id]
+    if (user_id)
+      current_user = User.find(user_id)
+      @tasks = current_user.tasks
+    end
   end
 
   def home
@@ -14,7 +17,7 @@ class PrioritiesController < ApplicationController
   end
 
   def create
-    @task = Task.new({title: params[:title], description: params[:description], address: params[:address], completion_time: params[:completion_time], date_time: params[:date_time], status: true, user_id: current_user.id, category_id: params[:category_id]})
+    @task = Task.new({title: params[:title], priority_level: params[:priority_level], description: params[:description], address: params[:address], completion_time: params[:completion_time], date_time: params[:date_time], status: true, user_id: current_user.id, category_id: params[:category_id]})
     @task.save
 
     redirect_to "/priorities"
@@ -30,7 +33,7 @@ class PrioritiesController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    @task.assign_attributes({title: params[:title], description: params[:description], address: params[:address], completion_time: params[:completion_time], date_time: params[:date_time], status: true, user_id: current_user.id})
+    @task.assign_attributes({title: params[:title], priority_level: params[:priority_level], description: params[:description], address: params[:address], completion_time: params[:completion_time], date_time: params[:date_time], status: true, user_id: current_user.id})
     @task.save
   end
 

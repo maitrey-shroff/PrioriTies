@@ -19,7 +19,33 @@
         });
     }
 
-    $scope.saveEdits = function(current_task){
+    $scope.newTask = function(new_task, user_id){
+      console.log(current_task.id)
+      $http({
+        method: 'POST',
+        url: URL + '/priorities/',
+        // add remaining fields
+        data: { 
+          title: current_task.title, 
+          description: current_task.description,
+          category_id: current_task.category_id,
+          priority_level: current_task.priority_level,
+          address: current_task.address,
+          completion_time: current_task.completion_time,
+          date_time: current_task.date_time,
+          pinned: current_task.pinned }
+      }).then(function successCallback(response) {
+          SweetAlert.swal("Saved changes!")
+          $scope.getTasks(user_id);
+          // console.log(response)
+          $scope.current_task = response.data
+        }, function errorCallback(response) {
+          // called asynchronously if an error occurs
+          // or server returns response with an error status.
+        });
+    }
+
+    $scope.saveEdits = function(current_task, user_id){
       console.log(current_task.id)
       $http({
         method: 'PATCH',
@@ -36,7 +62,7 @@
           pinned: current_task.pinned }
       }).then(function successCallback(response) {
           SweetAlert.swal("Saved changes!")
-          $scope.getTasks();
+          $scope.getTasks(user_id);
           // console.log(response)
           $scope.current_task = response.data
         }, function errorCallback(response) {
@@ -45,12 +71,10 @@
         });
     }
 
-    $scope.getTasks = function(){
-      var current_user_id = document.getElementById('currentUserId');
-      console.log(current_user_id);
+    $scope.getTasks = function(user_id){
       $http({
         method: 'GET',
-        url: URL + '/priorities' + "?user_id=" + current_user_id
+        url: URL + '/priorities' + ".json" + "?user_id=" + user_id
       }).then(function successCallback(response) {
         $scope.tasks = response.data
         // console.log(response)
@@ -58,6 +82,14 @@
         // called asynchronously if an error occurs
         // or server returns response with an error status.
       });
+
+    $scope.propertyName = 'title';
+    $scope.reverse = true;
+
+    $scope.sortBy = function(propertyName) {
+      $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+      $scope.propertyName = propertyName;
+    };
 
     }
 

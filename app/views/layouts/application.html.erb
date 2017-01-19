@@ -22,34 +22,22 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#"></a>
+        <a class="navbar-brand" href="#">PrioriTies</a>
       </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <% if current_user %>
             <li><a data-toggle="modal" data-target="#newModal">[ + ]</a></li>
-            <li><a href="/priorities">PrioriTies</a></li>
+<!--             <li><a href="/">PrioriTies</a></li> -->
           <% end %>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
-              <li class="divider"></li>
-              <li><a href="#">Separated link</a></li>
-              <li class="divider"></li>
-              <li><a href="#">One more separated link</a></li>
-            </ul>
-          </li>
         </ul>
-        <form class="navbar-form navbar-left" role="search">
+<!--         <form class="navbar-form navbar-left" role="search">
           <div class="form-group">
             <input type="text" class="form-control" placeholder="Search">
           </div>
           <button type="submit" class="btn btn-default">Submit</button>
-        </form>
+        </form> -->
         <ul class="nav navbar-nav navbar-right">
           <% if current_user %>        
             <li><a href="/users/sign_out">Logout</a></li>
@@ -72,67 +60,69 @@
     <!-- wrapping yield in angular -->
     <div ng-app="app">
     <%= yield %>
-    </div>
+      <div ng-controller="pageCtrl">
+      <div id="newModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Add a New PrioriTie</h4>
+            </div>
+            <div class="modal-body">
 
-    <div id="newModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Add a New PrioriTie</h4>
-          </div>
-          <div class="modal-body">
+              <form action="/priorities" accept-charset="UTF-8" method="post" class="ng-pristine ng-valid"><input name="utf8" type="hidden" value="✓" autocomplete="off"><input type="hidden" name="authenticity_token" value="sXHqbtfdKK5QOqsbbyNAVnBYQPPMbUtELNUPeeGUiSHVRMdj24Fzjck9Ar19K45kr2wDbW1TtH+RXF10CWbfaQ==" autocomplete="off">
 
-            <%= form_tag '/priorities', method: :post do %>
+                <div>
+                  <label for="title">Title</label>:
+                  <input type="text" name="title" id="title" data-com.agilebits.onepassword.user-edited="yes">
+                </div>
 
-              <div>
-                <%= label_tag :title %>:
-                <%= text_field_tag :title %>
-              </div>
+                <div>
+                  <label for="description">Description</label>:
+                  <input type="text" name="description" id="description" data-com.agilebits.onepassword.user-edited="yes">
+                </div>
 
-              <div>
-                <%= label_tag :description %>:
-                <%= text_field_tag :description %>
-              </div>
+                <div>
+                  <label for="priority_level">Priority level</label>:
+                  <input type="text" name="priority_level" id="priority_level" data-com.agilebits.onepassword.user-edited="yes">
+                </div>
 
-              <div>
-                <%= label_tag :category_id %>:
-                <%= text_field_tag :category_id %>
-              </div>
+                <div>
+                  <label for="category_id">Category</label>:
+                  <input type="text" name="category_id" id="category_id" data-com.agilebits.onepassword.user-edited="yes">
+                </div>
 
-              <div>
-                <%= label_tag :address %>:
-                <%= text_field_tag :address %>
-              </div>
+                <div>
+                  <label for="address">Address</label>:
+                  <input type="text" name="address" id="address">
+                </div>
 
-              <div>
-                <%= label_tag :completion_time %> (in minutes):
-                <%= text_field_tag :completion_time %>
-              </div>
+                <div>
+                  <label for="completion_time">Completion time</label> (in minutes):
+                  <input type="text" name="completion_time" id="completion_time" data-com.agilebits.onepassword.user-edited="yes">
+                </div>
 
-              <div>
-                <%= label_tag :date_time %>:
-                <%= text_field_tag :date_time %>
-              </div>
-              
-              <div>
-                <%= label_tag :pinned %>:
-                <%= text_field_tag :pinned %>
-              </div>
-              
-              <div>
-                <%= submit_tag "submit" %>
-              </div>
+                <div>
+                  <label for="date_time">Date time</label>:
+                  <input type="text" name="date_time" id="date_time">
+                </div>
+                
+                <div>
+                  <label for="pinned">Pinned</label>:
+                  <input type="text" name="pinned" id="pinned">
+                </div>
 
-            <% end %>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <!-- FIX THIS SAVE BUTTON -->
-            <input type="submit" ng-click="saveEdits(current_task)" class="btn btn-primary" name="commit" value="Save Changes" data-dismiss="modal" data-disable-with="submit">            
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <!-- FIX THIS SAVE BUTTON -->
+              <input type="submit" ng-click="newTask(<%= current_user.id %>)" class="btn btn-primary" name="commit" value="Save Changes" data-dismiss="modal" data-disable-with="submit">            
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </div><!-- /.modal -->
+    </div> <!-- angular controller -->
+  </div> <!-- .angular app -->
   </body>
 </html>
