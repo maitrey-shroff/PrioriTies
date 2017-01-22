@@ -61,6 +61,7 @@
     <div ng-app="app">
     <%= yield %>
       <div ng-controller="pageCtrl">
+      <% if current_user %>
       <div id="newModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -74,42 +75,42 @@
 
                 <div>
                   <label for="title">Title</label>:
-                  <input type="text" name="title" id="title" data-com.agilebits.onepassword.user-edited="yes">
+                  <input type="text" class="form-control" name="title" id="title" ng-model="new_task.title">
                 </div>
 
                 <div>
                   <label for="description">Description</label>:
-                  <input type="text" name="description" id="description" data-com.agilebits.onepassword.user-edited="yes">
+                  <input type="text" class="form-control" name="description" id="description" ng-model="new_task.description">
                 </div>
 
                 <div>
                   <label for="priority_level">Priority level</label>:
-                  <input type="text" name="priority_level" id="priority_level" data-com.agilebits.onepassword.user-edited="yes">
+                  <input type="text" class="form-control" name="priority_level" id="priority_level" ng-model="new_task.priority_level">
                 </div>
 
                 <div>
                   <label for="category_id">Category</label>:
-                  <input type="text" name="category_id" id="category_id" data-com.agilebits.onepassword.user-edited="yes">
+                  <input type="text" class="form-control" name="category_id" id="category_id" ng-model="new_task.category_id">
                 </div>
 
                 <div>
                   <label for="address">Address</label>:
-                  <input type="text" name="address" id="address">
+                  <input type="text" class="form-control" name="address" id="address" ng-model="new_task.address">
                 </div>
 
                 <div>
                   <label for="completion_time">Completion time</label> (in minutes):
-                  <input type="text" name="completion_time" id="completion_time" data-com.agilebits.onepassword.user-edited="yes">
+                  <input type="text" class="form-control" name="completion_time" id="completion_time" ng-model="new_task.completion_time">
                 </div>
 
                 <div>
                   <label for="date_time">Date time</label>:
-                  <input type="text" name="date_time" id="date_time">
+                  <input type="text" class="form-control" name="date_time" id="date_time" ng-model="new_task.date_time">
                 </div>
                 
                 <div>
-                  <label for="pinned">Pinned</label>:
-                  <input type="text" name="pinned" id="pinned">
+                  <label for="pinned">Pin this task?</label>:
+                  <input type="checkbox" class="form-control" name="pinned" ng-model="new_task.pinned"><br>
                 </div>
 
             </form>
@@ -117,11 +118,12 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <!-- FIX THIS SAVE BUTTON -->
-              <input type="submit" ng-click="newTask(<%= current_user.id %>)" class="btn btn-primary" name="commit" value="Save Changes" data-dismiss="modal" data-disable-with="submit">            
+                <input type="submit" ng-click="newTask(new_task, <%= current_user.id %>)" class="btn btn-primary" name="commit" value="Save Changes" data-dismiss="modal" data-disable-with="submit">          
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
+      <% end %>
     </div> <!-- angular controller -->
   </div> <!-- .angular app -->
   </body>

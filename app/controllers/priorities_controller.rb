@@ -19,8 +19,6 @@ class PrioritiesController < ApplicationController
   def create
     @task = Task.new({title: params[:title], priority_level: params[:priority_level], description: params[:description], address: params[:address], completion_time: params[:completion_time], date_time: params[:date_time], status: true, user_id: current_user.id, category_id: params[:category_id]})
     @task.save
-
-    redirect_to "/priorities"
   end
 
   # def new

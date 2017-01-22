@@ -31,7 +31,7 @@ Task.destroy_all
 # end
 
 User.ids.each do |user_id|
-  25.times do
+  7.times do
     Task.create({
       user_id: user_id,
       category_id: rand(10) + 12,

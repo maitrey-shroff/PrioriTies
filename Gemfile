@@ -32,6 +32,8 @@ gem 'dotenv-rails'
 gem 'bootstrap-sass'
 gem 'bootswatch-rails'
 gem 'faker'
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.14.30'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
