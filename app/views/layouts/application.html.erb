@@ -60,7 +60,7 @@
     <!-- wrapping yield in angular -->
     <div ng-app="app">
     <%= yield %>
-      <div ng-controller="pageCtrl">
+      <div ng-controller="pageCtrl as vm">
       <% if current_user %>
       <div id="newModal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -118,7 +118,7 @@
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <!-- FIX THIS SAVE BUTTON -->
-                <input type="submit" ng-click="newTask(new_task, <%= current_user.id %>)" class="btn btn-primary" name="commit" value="Save Changes" data-dismiss="modal" data-disable-with="submit">          
+                <input type="submit" ng-click="vm.newTask(new_task, <%= current_user.id %>)" class="btn btn-primary" name="commit" value="Save Changes" data-dismiss="modal" data-disable-with="submit">          
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

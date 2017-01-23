@@ -14,5 +14,7 @@
 //= require jquery_ujs
 //= require angular
 //= require bootstrap-sprockets
+//= require moment
+//= require bootstrap-datetimepicker
 //= require_tree .
 //= require app

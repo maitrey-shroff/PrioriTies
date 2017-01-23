@@ -1,27 +1,32 @@
-(function()
-{
+
   "use strict";
 
-  angular.module("app").controller("pageCtrl", function($scope, $http, SweetAlert) 
+  angular.module("app").controller("pageCtrl", function($scope, $rootScope, $timeout, $http, SweetAlert) 
   {
-    window.$scope = $scope;
+    // window.vm = vm;
+    var vm = this;
+    window.vm = vm;
     var URL = "http://localhost:3000";
-    $scope.tasks = [];
+    vm.tasks = [];
 
-    $scope.getDetails = function(id){
+    vm.initFunc = function(id) {
+      vm.getTasks(id);
+    }
+
+    vm.getDetails = function(id){
       $http({
         method: 'GET',
         url: URL + '/priorities/' + id + '.json'
       }).then(function successCallback(response) {
           // console.log(response)
-          $scope.current_task = response.data;
+          vm.current_task = response.data;
         }, function errorCallback(response) {
           // called asynchronously if an error occurs
           // or server returns response with an error status.
         });
     }
 
-    $scope.newTask = function(new_task, user_id){
+    vm.newTask = function(new_task, user_id){
       $http({
         method: 'POST',
         url: URL + '/priorities',
@@ -37,20 +42,21 @@
           pinned: new_task.pinned }
       }).then(function successCallback(response) {
           console.log(response);
+          // vm.tasks.push(response.data);
+          // vm.getTasks(user_id);
           SweetAlert.swal("Saved changes!");
-          $scope.getTasks(user_id);
-          // $scope.refreshScope();
-          // $scope.new_task = response.data;
+          location.reload();
+          // console.log("new task created")
         }, function errorCallback(response) {
           // called asynchronously if an error occurs
           // or server returns response with an error status.
         });
     }
 
-    $scope.refreshScope = function(){
-      if(!$scope.$$phase) {
-        $scope.$apply();
-      }
+    vm.refreshScope = function(){
+      $timeout(function(){
+        vm.safeApply();
+      })
     }
 
     $scope.safeApply = function(fn) {
@@ -64,7 +70,7 @@
       }
     };
 
-    $scope.saveEdits = function(current_task, user_id){
+    vm.saveEdits = function(current_task, user_id){
       console.log(current_task.id)
       $http({
         method: 'PATCH',
@@ -81,44 +87,38 @@
           pinned: current_task.pinned }
       }).then(function successCallback(response) {
           SweetAlert.swal("Saved changes!")
-          $scope.getTasks(user_id);
-          // console.log(response)
-          $scope.current_task = response.data
+          vm.getTasks(user_id);
+          vm.current_task = response.data
         }, function errorCallback(response) {
           // called asynchronously if an error occurs
           // or server returns response with an error status.
         });
     }
 
-    $scope.getTasks = function(user_id){
+    vm.getTasks = function(user_id){
       $http({
         method: 'GET',
         url: URL + '/priorities' + ".json" + "?user_id=" + user_id
       }).then(function successCallback(response) {
-        $scope.safeApply(function(){
-          // $scope.tasks = response.data
-          $scope.tasks.length = 0;
-          for (var i=0; i < response.data.length; i++){
-            $scope.tasks.push(response.data[i]);
-            console.log($scope.tasks);
-          }
-        });
-        // $scope.refreshScope();
+          // vm.tasks = response.data
+          $scope.safeApply(function() {
+            vm.tasks = response.data;
+            console.log
+          });
         console.log(response);
       }, function errorCallback(response) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
       });
 
-    $scope.propertyName = 'title';
-    $scope.reverse = true;
+    vm.propertyName = 'title';
+    vm.reverse = true;
 
-    $scope.sortBy = function(propertyName) {
-      $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
-      $scope.propertyName = propertyName;
+    vm.sortBy = function(propertyName) {
+      vm.reverse = (vm.propertyName === propertyName) ? !vm.reverse : false;
+      vm.propertyName = propertyName;
     };
 
     }
 
   });
-})();
