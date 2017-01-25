@@ -34,6 +34,7 @@ class PrioritiesController < ApplicationController
   def update
     @task = Task.find(params[:id])
     @task.assign_attributes({title: params[:title], priority_level: params[:priority_level], description: params[:description], address: params[:address], completion_time: params[:completion_time], date_time: params[:date_time], status: true, user_id: current_user.id})
+    # byebug
     @task.save
   end
 

@@ -6,30 +6,30 @@
       <thead>
         <tr>
           <th> 
-            <span ng-click="sortBy('title')">Title</span>
-            <span class="sortorder" ng-show="propertyName === 'title'" ng-class="{reverse: reverse}"></span>
+            <span ng-click="vm.sortBy('title')">Title</span>
+            <span class="sortorder" ng-show="vm.propertyName === 'title'" ng-class="{reverse: vm.reverse}"></span>
           </th>
           <th> 
-            <span ng-click="sortBy('priority_level')">Priority</span>
-            <span class="sortorder" ng-show="propertyName === 'priority_level'" ng-class="{reverse: reverse}"></span>
+            <span ng-click="vm.sortBy('priority_level')">Priority</span>
+            <span class="sortorder" ng-show="vm.propertyName === 'priority_level'" ng-class="{reverse: vm.reverse}"></span>
           </th>
           <th> 
-            <span ng-click="sortBy('completion_time')">Time to complete</span>
-            <span class="sortorder" ng-show="propertyName === 'completion_time'" ng-class="{reverse: reverse}"></span>
+            <span ng-click="vm.sortBy('completion_time')">Time to complete</span>
+            <span class="sortorder" ng-show="vm.propertyName === 'completion_time'" ng-class="{reverse: vm.reverse}"></span>
           </th>
-          <th>
-            <span ng-click="sortBy('date_time')">Due date</span>
-            <span class="sortorder" ng-show="propertyName === 'date_time'" ng-class="{reverse: reverse}"></span>
-          </th>
+<!--           <th>
+            <span ng-click="vm.sortBy('date_time')">Due date</span>
+            <span class="sortorder" ng-show="vm.propertyName === 'date_time'" ng-class="{reverse: vm.reverse}"></span>
+          </th> -->
         </tr>
       </thead>
       <tbody>
       <% if current_user %>
-        <tr ng-repeat="task in vm.tasks | orderBy:vm.propertyName:vm.reverse" ng-click="vm.getDetails(task.id)" data-toggle="modal" data-target="#detailView">
+        <tr ng-repeat="task in vm.tasks | orderBy:vm.propertyName:vm.reverse" ng-click="vm.getDetails(task.id)" data-toggle="modal" data-target="#detailView" ng-class="vm.getClass(task.priority_level)">
           <td> {{ task.title }} </td>
           <td> {{ task.priority_level }} </td>
           <td>{{ task.completion_time }} </td>
-          <td>{{ task.date_time }} </td>
+<!--           <td>{{ task.date_time }} </td> -->
         </tr>
       <% end %>
       </tbody>
@@ -52,15 +52,16 @@
           <p>{{ vm.current_task.completion_time }}</p>
           <h4>Priority Level</h4>
           <p>{{ vm.current_task.priority_level }}</p>
-          <h4>Pinned?</h4>
-          <p>{{ vm.current_task.pinned }}</p>
-          <h4>Due Date</h4>
-          <p>{{ vm.current_task.date_time }}</p>
-          <h4>Completed?</h4>
+<!--           <h4>Pinned?</h4>
+          <p>{{ vm.current_task.pinned }}</p> -->
+<!--           <h4>Due Date</h4>
+          <p>{{ vm.current_task.date_time }}</p> -->
+          <h4>Completetion status:</h4>
           <p>{{ vm.current_task.status }}</p>
           <h4>Address</h4>
           <p>{{ vm.current_task.address }}</p>
         </div>
+        <div id="map"></div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-default" data-toggle="modal" data-target="#editModal" data-dismiss="modal">Edit PrioriTie</button>
@@ -94,56 +95,57 @@
 
             <div>
               <label for="date_time">Priority level</label>:
-              <input type="text" class="form-control" name="priority_level" id="priority_level" ng-model="vm.current_task.priority_level">
+              <input min="1" max="5" required type="number" class="form-control" name="priority_level" id="priority_level" ng-model="vm.current_task.priority_level">
             </div>
 
-            <div>
+<!--       Not using categories right now   
+           <div>
               <label for="category_id">Category</label>:
               <input type="text" class="form-control" name="category_id" id="category_id" ng-model="vm.current_task.category_id">
             </div>
-
+ -->
             <div>
               <label for="address">Address</label>:
-              <input type="text" class="form-control" name="address" id="address" ng-model="vm.current_task.address">
+              <input type="text" class="form-control" name="address" id="addressField" ng-model="vm.current_task.address">
             </div>
 
             <div>
-              <label for="completion_time">Completion time</label> (in minutes):
+              <label for="completion_time">Estimated completion time</label> (in minutes):
               <input type="text" class="form-control" name="completion_time" id="completion_time" ng-model="vm.current_task.completion_time">
             </div>
 
+<!--        Not using date_time right now
             <div>
               <label for="date_time">Date time</label>:
-              <input type="text" name="date_time" class="form-control" id="date_time" ng-model="vm.current_task.date_time">
-            </div>
-
-            <!-- <div class="container">
-    <div class="row">
-        <div class='col-sm-6'>
-            <input type='text' class="form-control" id='datetimepicker4' />
-        </div>
-        <script type="text/javascript">
-            $(function () {
-                $('#datetimepicker4').datetimepicker();
-            });
-        </script>
-    </div>
-</div> -->
+              <input type="text" name="date_time" class="form-control" id="date_time" ng-model="vm.date_time">
+              <script type="text/javascript">
+                $(function () {
+                  $('#date_time').datetimepicker({format: 'YYYY-MM-DD HH:mm'});
+                });
+              </script>
+            </div> -->
 
             <div>
-              <label for="pinned">Pin this task?</label>:
-              <input type="checkbox" class="form-control" name="pinned" ng-model="vm.current_task.pinned"><br>
+              <label for="pinned">Completed?</label>:
+              <input type="checkbox" class="form-control" name="pinned" ng-model="vm.current_task.status"><br>
             </div>
           </div>
 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <input type="submit" ng-click="vm.saveEdits(vm.current_task, <%=current_user.id %>)" class="btn btn-primary" name="commit" value="Save Changes" data-dismiss="modal" data-disable-with="submit">
+          <input type="submit" ng-click="vm.saveEdits(vm.current_task, <%=current_user.id %>, vm.date_time)" class="btn btn-primary" name="commit" value="Save Changes" data-dismiss="modal" data-disable-with="submit">
         </form>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
   <% end %>
+    <script src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
+  <script src="/jquery.geocomplete.js"></script>
+  <script type="text/javascript">
+  $(function(){
+    $("#addressField").geocomplete();
+  });
+  </script>
 </div>

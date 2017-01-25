@@ -71,54 +71,57 @@
             </div>
             <div class="modal-body">
 
-              <form action="/priorities" accept-charset="UTF-8" method="post" class="ng-pristine ng-valid"><input name="utf8" type="hidden" value="✓" autocomplete="off"><input type="hidden" name="authenticity_token" value="sXHqbtfdKK5QOqsbbyNAVnBYQPPMbUtELNUPeeGUiSHVRMdj24Fzjck9Ar19K45kr2wDbW1TtH+RXF10CWbfaQ==" autocomplete="off">
+              <form name="newForm" action="/priorities" accept-charset="UTF-8" method="post" class="ng-pristine ng-valid"><input name="utf8" type="hidden" value="✓" autocomplete="off"><input type="hidden" name="authenticity_token" value="sXHqbtfdKK5QOqsbbyNAVnBYQPPMbUtELNUPeeGUiSHVRMdj24Fzjck9Ar19K45kr2wDbW1TtH+RXF10CWbfaQ==" autocomplete="off">
 
                 <div>
-                  <label for="title">Title</label>:
-                  <input type="text" class="form-control" name="title" id="title" ng-model="new_task.title">
+                  <label for="title">Title:</label>
+                  <input type="text" required class="form-control" name="title" id="title" placeholder="Enter title of PrioriTie" ng-model="new_task.title">
                 </div>
 
                 <div>
-                  <label for="description">Description</label>:
-                  <input type="text" class="form-control" name="description" id="description" ng-model="new_task.description">
+                  <label for="description">Description:</label>
+                  <input type="text" class="form-control" name="description" id="description" placeholder="Describe this PrioriTie" ng-model="new_task.description">
                 </div>
 
                 <div>
-                  <label for="priority_level">Priority level</label>:
-                  <input type="text" class="form-control" name="priority_level" id="priority_level" ng-model="new_task.priority_level">
+                  <label for="priority_level">Priority level:</label>
+                  <input min="1" max="5" required type="number" class="form-control" name="priority_level" id="priority_level" placeholder="Rank this PrioriTie from 1-5 where '1' is the highest" ng-model="new_task.priority_level">
                 </div>
 
+<!--            Not using Categories right now
                 <div>
                   <label for="category_id">Category</label>:
                   <input type="text" class="form-control" name="category_id" id="category_id" ng-model="new_task.category_id">
                 </div>
-
+ -->
                 <div>
-                  <label for="address">Address</label>:
-                  <input type="text" class="form-control" name="address" id="address" ng-model="new_task.address">
+                  <label for="address">Address:</label>
+                  <input type="text" class="form-control" name="address" id="addressField" ng-model="new_task.address">
                 </div>
 
                 <div>
-                  <label for="completion_time">Completion time</label> (in minutes):
-                  <input type="text" class="form-control" name="completion_time" id="completion_time" ng-model="new_task.completion_time">
+                  <label for="completion_time">Estimated completion time:</label>
+                  <input type="text" class="form-control" name="completion_time" id="completion_time" placeholder="How long (in minutes) will you take to complete this PrioriTie?" ng-model="new_task.completion_time">
                 </div>
 
+<!--            Not using date time right now
                 <div>
                   <label for="date_time">Date time</label>:
                   <input type="text" class="form-control" name="date_time" id="date_time" ng-model="new_task.date_time">
-                </div>
-                
+                </div> -->
+
+<!--            Not using pinned tasks right now     
                 <div>
                   <label for="pinned">Pin this task?</label>:
                   <input type="checkbox" class="form-control" name="pinned" ng-model="new_task.pinned"><br>
-                </div>
+                </div> -->
 
             </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               <!-- FIX THIS SAVE BUTTON -->
-                <input type="submit" ng-click="vm.newTask(new_task, <%= current_user.id %>)" class="btn btn-primary" name="commit" value="Save Changes" data-dismiss="modal" data-disable-with="submit">          
+                <input ng-disabled="newForm.$invalid" type="submit" ng-click="vm.newTask(new_task, <%= current_user.id %>)" class="btn btn-primary" name="commit" value="Save Changes" data-dismiss="modal" data-disable-with="submit">          
             </div>
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -126,5 +129,12 @@
       <% end %>
     </div> <!-- angular controller -->
   </div> <!-- .angular app -->
+  <script src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
+  <script src="/jquery.geocomplete.js"></script>
+  <script type="text/javascript">
+  $(function(){
+    $("#addressField").geocomplete();
+  });
+  </script>
   </body>
 </html>

@@ -10,3 +10,16 @@ body { padding-top: 70px; }
 .sortorder.reverse:after {
   content: '\25bc';   // BLACK DOWN-POINTING TRIANGLE
 }
+
+#map {
+  height: 300px;
+}
+
+.modal {
+  z-index: 50;
+  padding-top: 100px;
+}
+
+.modal-backdrop {
+  z-index: 30;
+}
