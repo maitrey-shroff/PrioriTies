@@ -96,7 +96,7 @@
  -->
                 <div>
                   <label for="address">Address:</label>
-                  <input type="text" class="form-control" name="address" id="addressField" ng-model="new_task.address">
+                  <input type="text" class="form-control" name="address" id="addressFieldNew" ng-model="new_task.address">
                 </div>
 
                 <div>
@@ -129,11 +129,11 @@
       <% end %>
     </div> <!-- angular controller -->
   </div> <!-- .angular app -->
-  <script src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=<%=ENV["GOOGLE_API_KEY"]%>&libraries=places"></script>
   <script src="/jquery.geocomplete.js"></script>
   <script type="text/javascript">
   $(function(){
-    $("#addressField").geocomplete();
+    $("#addressFieldNew").geocomplete();
   });
   </script>
   </body>

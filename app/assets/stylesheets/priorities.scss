@@ -16,7 +16,7 @@ body { padding-top: 70px; }
 }
 
 .modal {
-  z-index: 50;
+  z-index: 100;
   padding-top: 100px;
 }
 
@@ -25,5 +25,23 @@ body { padding-top: 70px; }
 }
 
 tr {
-  padding-bottom: 25px;
+  height: 27px;
+}
+
+td {
+  padding-bottom: 13px !important;
+  padding-top: 13px !important;
+}
+
+th {
+  height: 30px;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0 1px;
+}
+
+.inputField {
+  border: 2px !important;
 }

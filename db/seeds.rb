@@ -35,7 +35,7 @@ User.ids.each do |user_id|
     Task.create({
       user_id: user_id,
       # category_id: rand(10) + 12,
-      title: Faker::Hipster.word,
+      title: Faker::Hipster.word + " " + Faker::Hipster.word + " " + Faker::Hipster.word,
       description: Faker::StarWars.quote,
       address: "231 San Jose Ave, San Francisco, Ca",
       completion_time: rand(50) + 10,

@@ -27,7 +27,7 @@
           // console.log(response)
           vm.current_task = response.data;
           vm.initMap(vm.current_task.latitude, vm.current_task.longitude);
-          vm.getUber();
+          // vm.getUber();
         }, function errorCallback(response) {
           // called asynchronously if an error occurs
           // or server returns response with an error status.
@@ -109,13 +109,13 @@
       }).then(function successCallback(response) {
           // vm.tasks = response.data
           $scope.safeApply(function() {
-            for (var i=0; i<response.data.length; i++){
-              if (response.data[i].status === false){
-                vm.tasks.push(response.data[i]);
-                console.log(vm.tasks);
-              }
-            }            
-            // vm.tasks = response.data;
+            // for (var i=0; i<response.data.length; i++){
+            //   if (response.data[i].status === false){
+            //     vm.tasks.push(response.data[i]);
+            //     // console.log(vm.tasks);
+            //   }
+            // }            
+            vm.tasks = response.data;
             // console.log
           });
         // console.log(response);
