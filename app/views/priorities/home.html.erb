@@ -111,7 +111,7 @@
 
             <div class="inputField">
               <label for="completion_time">Estimated completion time</label> (in minutes):
-              <input type="text" class="form-control" name="completion_time" id="completion_time" ng-model="vm.current_task.completion_time">
+              <input type="number" required class="form-control" name="completion_time" id="completion_time" ng-model="vm.current_task.completion_time">
             </div>
 
 <!--        Not using date_time right now
@@ -126,8 +126,8 @@
             </div> -->
 
             <div class="inputField">
-              <label for="pinned">Completed?</label>:
-              <input type="checkbox" class="form-control" name="pinned" ng-model="vm.current_task.status"><br>
+              <label for="status">Completed?</label>:
+              <input type="checkbox" class="form-control" name="status" ng-model="vm.current_task.status"><br>
             </div>
           </div>
 

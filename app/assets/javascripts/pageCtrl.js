@@ -46,8 +46,9 @@
           priority_level: new_task.priority_level,
           address: new_task.address,
           completion_time: new_task.completion_time,
+          status: false }
           // date_time: new_task.date_time,
-          pinned: new_task.pinned }
+          // pinned: new_task.pinned }
       }).then(function successCallback(response) {
           console.log(response);
           // vm.tasks.push(response.data);
@@ -181,31 +182,31 @@
       }
     };
 
-    vm.getHighPriorityTasks = function(user_id, priority_level){
-      $http({
-        method: 'GET',
-        url: URL + '/priorities' + ".json" + "?user_id=" + user_id
-      }).then(function successCallback(response) {
-          // vm.tasks = response.data
-          $scope.safeApply(function() {
-            for (var i=0; i<response.data.length; i++){
-              if (response.data[i].priority_level === priority_level){
-                vm.tasks.push(response.data[i]);
-                console.log(vm.tasks);
-              }
-            }
-            // vm.tasks = response.data;
-            // console.log
-          });
-        // console.log(response);
-      }, function errorCallback(response) {
-        // called asynchronously if an error occurs
-        // or server returns response with an error status.
-      });
+    // vm.getHighPriorityTasks = function(user_id, priority_level){
+    //   $http({
+    //     method: 'GET',
+    //     url: URL + '/priorities' + ".json" + "?user_id=" + user_id
+    //   }).then(function successCallback(response) {
+    //       // vm.tasks = response.data
+    //       $scope.safeApply(function() {
+    //         for (var i=0; i<response.data.length; i++){
+    //           if (response.data[i].priority_level === priority_level){
+    //             vm.tasks.push(response.data[i]);
+    //             console.log(vm.tasks);
+    //           }
+    //         }
+    //         // vm.tasks = response.data;
+    //         // console.log
+    //       });
+    //     // console.log(response);
+    //   }, function errorCallback(response) {
+    //     // called asynchronously if an error occurs
+    //     // or server returns response with an error status.
+    //   });
 
-    vm.propertyName = 'priority_level';
-    vm.reverse = false;
-    }
+    // vm.propertyName = 'priority_level';
+    // vm.reverse = false;
+    // }
 
 
 

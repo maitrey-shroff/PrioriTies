@@ -17,7 +17,7 @@ class PrioritiesController < ApplicationController
   end
 
   def create
-    @task = Task.new({title: params[:title], priority_level: params[:priority_level], description: params[:description], address: params[:address], completion_time: params[:completion_time], date_time: params[:date_time], status: true, user_id: current_user.id, category_id: params[:category_id]})
+    @task = Task.new({title: params[:title], priority_level: params[:priority_level], description: params[:description], address: params[:address], completion_time: params[:completion_time], date_time: params[:date_time], status: false, user_id: current_user.id, category_id: params[:category_id]})
     @task.save
 
     render json: @task
@@ -33,8 +33,7 @@ class PrioritiesController < ApplicationController
 
   def update
     @task = Task.find(params[:id])
-    @task.assign_attributes({title: params[:title], priority_level: params[:priority_level], description: params[:description], address: params[:address], completion_time: params[:completion_time], date_time: params[:date_time], status: true, user_id: current_user.id})
-    # byebug
+    @task.assign_attributes({title: params[:title], priority_level: params[:priority_level], description: params[:description], address: params[:address], completion_time: params[:completion_time], date_time: params[:date_time], status: params[:status], user_id: current_user.id})
     @task.save
   end
 

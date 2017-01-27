@@ -30,19 +30,19 @@ Task.destroy_all
 #     })
 # end
 
-User.ids.each do |user_id|
-  100.times do
-    Task.create({
-      user_id: user_id,
-      # category_id: rand(10) + 12,
-      title: Faker::Hipster.word + " " + Faker::Hipster.word + " " + Faker::Hipster.word,
-      description: Faker::StarWars.quote,
-      address: "231 San Jose Ave, San Francisco, Ca",
-      completion_time: rand(50) + 10,
-      date_time: Faker::Date.forward(23),
-      status: false,
-      # pinned: false,
-      priority_level: rand(5) +1
-      })
-  end
-end
+# User.ids.each do |user_id|
+#   100.times do
+#     Task.create({
+#       user_id: user_id,
+#       # category_id: rand(10) + 12,
+#       title: Faker::Hipster.word + " " + Faker::Hipster.word + " " + Faker::Hipster.word,
+#       description: Faker::StarWars.quote,
+#       address: "231 San Jose Ave, San Francisco, Ca",
+#       completion_time: rand(50) + 10,
+#       date_time: Faker::Date.forward(23),
+#       status: false,
+#       # pinned: false,
+#       priority_level: rand(5) +1
+#       })
+#   end
+# end
