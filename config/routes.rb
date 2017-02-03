@@ -7,5 +7,7 @@ Rails.application.routes.draw do
 
   resources :priorities
 
+  get "/highPriority", to: "priorities#highPriority"
+
 
 end

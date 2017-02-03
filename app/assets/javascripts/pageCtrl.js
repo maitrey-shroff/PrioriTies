@@ -15,7 +15,7 @@
     }
 
     vm.initFuncHigh = function(id) {
-      vm.getTasksHighPriority(id);
+      vm.getHighPriorityTasks(id, 3);
       vm.initMap();
     }
 
@@ -182,31 +182,31 @@
       }
     };
 
-    // vm.getHighPriorityTasks = function(user_id, priority_level){
-    //   $http({
-    //     method: 'GET',
-    //     url: URL + '/priorities' + ".json" + "?user_id=" + user_id
-    //   }).then(function successCallback(response) {
-    //       // vm.tasks = response.data
-    //       $scope.safeApply(function() {
-    //         for (var i=0; i<response.data.length; i++){
-    //           if (response.data[i].priority_level === priority_level){
-    //             vm.tasks.push(response.data[i]);
-    //             console.log(vm.tasks);
-    //           }
-    //         }
-    //         // vm.tasks = response.data;
-    //         // console.log
-    //       });
-    //     // console.log(response);
-    //   }, function errorCallback(response) {
-    //     // called asynchronously if an error occurs
-    //     // or server returns response with an error status.
-    //   });
+    vm.getHighPriorityTasks = function(user_id, priority_level){
+      $http({
+        method: 'GET',
+        url: URL + '/priorities' + ".json" + "?user_id=" + user_id + "&priority_level=" + priority_level
+      }).then(function successCallback(response) {
+          // vm.tasks = response.data
+          $scope.safeApply(function() {
+            for (var i=0; i<response.data.length; i++){
+              if (response.data[i].priority_level === priority_level){
+                vm.tasks.push(response.data[i]);
+                console.log(vm.tasks);
+              }
+            }
+            // vm.tasks = response.data;
+            // console.log
+          });
+        console.log(response);
+      }, function errorCallback(response) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+      });
 
-    // vm.propertyName = 'priority_level';
-    // vm.reverse = false;
-    // }
+    vm.propertyName = 'priority_level';
+    vm.reverse = false;
+    }
 
 
 

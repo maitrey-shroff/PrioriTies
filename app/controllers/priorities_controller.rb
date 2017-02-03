@@ -12,6 +12,10 @@ class PrioritiesController < ApplicationController
 
   end
 
+  def highPriority
+
+  end
+
   def show
     @task = Task.find_by(id: params[:id])
   end
